@@ -206,6 +206,7 @@ import com.android.settings.wifi.tether.WifiTetherSettings;
 
 import com.rising.settings.PersonalizationsFragment;
 import com.rising.settings.fragments.*;
+import com.rising.settings.fragments.ui.SmartPixels;
 
 public class SettingsGateway {
 
@@ -402,7 +403,8 @@ public class SettingsGateway {
             PersonalizationsFragment.class.getName(),
             LockScreen.class.getName(),
             Themes.class.getName(),
-            Toolbox.class.getName()
+            Toolbox.class.getName(),
+            SmartPixels.class.getName()
     };
 
     public static final String[] SETTINGS_FOR_RESTRICTED = {
@@ -452,6 +454,7 @@ public class SettingsGateway {
             Settings.PersonalizationsActivity.class.getName(),
             Settings.PersonalizationsLockscreenActivity.class.getName(),
             Settings.PersonalizationsToolboxActivity.class.getName(),
-            Settings.PersonalizationsThemesActivity.class.getName()
+            Settings.PersonalizationsThemesActivity.class.getName(),
+            Settings.SmartPixelsActivity.class.getName()
     };
 }
