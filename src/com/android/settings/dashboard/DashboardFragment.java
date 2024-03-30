@@ -78,11 +78,11 @@ public abstract class DashboardFragment extends SettingsPreferenceFragment
     private static final long TIMEOUT_MILLIS = 50L;
 
     private static final List<String> ACCOUNT_INJECTED_KEYS = Arrays.asList(
-        "top_level_google",
-        "dashboard_tile_pref_com.google.android.gms.backup.component.BackupOrRestoreSettingsActivity"
     );
 
     private static final List<String> SECURITY_PRIVACY_INJECTED_KEYS = Arrays.asList(
+        "top_level_google",
+        "dashboard_tile_pref_com.google.android.gms.backup.component.BackupOrRestoreSettingsActivity",
         "top_level_wellbeing"
     );
 
