@@ -50,6 +50,7 @@ import com.android.settings.applications.AppInfoBase;
 import com.android.settings.datausage.lib.AppDataUsageDetailsRepository;
 import com.android.settings.datausage.lib.NetworkTemplates;
 import com.android.settings.datausage.lib.NetworkUsageDetailsData;
+import com.android.settings.fuelgauge.datasaver.DynamicDenylistManager;
 import com.android.settings.network.SubscriptionUtil;
 import com.android.settings.widget.EntityHeaderController;
 import com.android.settingslib.AppItem;
@@ -416,7 +417,8 @@ public class AppDataUsage extends DataUsageBaseFragment implements OnPreferenceC
     private boolean getAppRestriction(int policy) {
         final int uid = mAppItem.key;
         final int uidPolicy = services.mPolicyManager.getUidPolicy(uid);
-        return (uidPolicy & policy) != 0;
+        return (uidPolicy & policy) != 0
+                && DynamicDenylistManager.getInstance(mContext).isInManualDenylist(uid);
     }
 
     private boolean hasInternetPermission() {
