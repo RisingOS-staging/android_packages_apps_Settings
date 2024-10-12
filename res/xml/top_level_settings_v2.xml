@@ -227,6 +227,16 @@
             android:fragment="com.android.settings.emergency.EmergencyDashboardFragment"
             settings:isPreferenceVisible="@bool/config_show_emergency_settings"
             settings:highlightableMenuKey="@string/menu_key_emergency"/>
+            
+        <com.android.settings.widget.HomepagePreference
+            android:fragment="com.android.settings.accessibility.AccessibilitySettings"
+            android:icon="@drawable/ic_settings_accessibility_filled"
+            android:key="top_level_accessibility"
+            android:order="9"
+            android:title="@string/accessibility_settings"
+            android:summary="@string/accessibility_settings_summary"
+            settings:highlightableMenuKey="@string/menu_key_accessibility"
+            settings:controller="com.android.settings.accessibility.TopLevelAccessibilityPreferenceController"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -235,14 +245,22 @@
         android:layout="@layout/settingslib_preference_category_no_title">
 
         <com.android.settings.widget.HomepagePreference
-            android:fragment="com.android.settings.accessibility.AccessibilitySettings"
-            android:icon="@drawable/ic_settings_accessibility_filled"
-            android:key="top_level_accessibility"
-            android:order="-20"
-            android:title="@string/accessibility_settings"
-            android:summary="@string/accessibility_settings_summary"
-            settings:highlightableMenuKey="@string/menu_key_accessibility"
-            settings:controller="com.android.settings.accessibility.TopLevelAccessibilityPreferenceController"/>
+            android:icon="@drawable/ic_homepage_wellbeing"
+            android:key="top_level_wb"
+            android:order="-19"
+            android:title="@string/wellbeing_title"
+            android:summary="@string/summary_placeholder"
+            settings:highlightableMenuKey="top_level_wellbeing"
+            settings:controller="com.android.settings.home.WellbeingPreferenceController"/>
+
+        <com.android.settings.widget.HomepagePreference
+            android:icon="@drawable/ic_homepage_google"
+            android:key="top_level_services"
+            android:order="-18"
+            android:title="@string/gms_enabled_title"
+            android:summary="@string/summary_placeholder"
+            settings:highlightableMenuKey="top_level_google"
+            settings:controller="com.android.settings.home.GooglePreferenceController"/>
 
         <com.android.settings.widget.HomepagePreference
             android:icon="@drawable/ic_help_filled"
