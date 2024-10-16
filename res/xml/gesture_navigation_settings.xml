@@ -30,6 +30,13 @@
         android:defaultValue="true"
         settings:requiresPackage="com.custom.overlay.systemui.gestural.hidden" />
 
+    <com.android.settings.preferences.SystemSettingSwitchPreference
+        android:key="hide_ime_space_enable"
+        android:title="@string/navigation_bar_hide_ime_space_title"
+        android:summary="@string/navigation_bar_hide_ime_space_summary"
+        android:defaultValue="false"
+        settings:position="none" />
+
     <com.android.settings.widget.LabeledSeekBarPreference
         android:key="gesture_navbar_length_preference"
         android:title="@string/gesture_navbar_length_title"
