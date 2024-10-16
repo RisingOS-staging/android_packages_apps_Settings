@@ -29,6 +29,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.settings.R;
+
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 import java.util.Set;
@@ -83,24 +85,16 @@ public class HomepagePreference extends Preference implements
             View summaryView = mHolder.findViewById(android.R.id.summary);
             if ("top_level_network".equals(key)) {
                 String connectedNetwork = getConnectedNetwork(getContext());
-                if (connectedNetwork != null) {
-                    setSummary(connectedNetwork);
-                    summaryView.setVisibility(View.VISIBLE);
-                    setSummaryLayoutParams(summaryView, true);
-                } else {
-                    summaryView.setVisibility(View.GONE);
-                    setSummaryLayoutParams(summaryView, false);
-                }
+                String summary = getContext().getString(R.string.network_dashboard_summary_no_mobile);
+                setSummary(connectedNetwork != null ? connectedNetwork : summary);
+                summaryView.setVisibility(View.VISIBLE);
+                setSummaryLayoutParams(summaryView, true);
             } else if ("top_level_connected_devices".equals(key)) {
                 String connectedBluetooth = getConnectedBluetoothDevice(getContext());
-                if (connectedBluetooth != null) {
-                    setSummary(connectedBluetooth);
-                    summaryView.setVisibility(View.VISIBLE);
-                    setSummaryLayoutParams(summaryView, true);
-                } else {
-                    summaryView.setVisibility(View.GONE);
-                    setSummaryLayoutParams(summaryView, false);
-                }
+                String summary = getContext().getString(R.string.connected_devices_dashboard_default_summary);
+                setSummary(connectedBluetooth != null ? connectedBluetooth : summary);
+                summaryView.setVisibility(View.VISIBLE);
+                setSummaryLayoutParams(summaryView, true);
             } else {
                 summaryView.setVisibility(View.GONE);
                 setSummaryLayoutParams(summaryView, false);
