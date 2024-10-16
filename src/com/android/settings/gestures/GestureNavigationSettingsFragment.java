@@ -26,6 +26,8 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.WindowManager;
 
+import androidx.preference.Preference;
+
 import com.android.settings.R;
 import com.android.settings.dashboard.DashboardFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
@@ -36,6 +38,8 @@ import com.android.settingslib.search.SearchIndexable;
 import static com.android.systemui.shared.recents.utilities.Utilities.isLargeScreen;
 
 import lineageos.providers.LineageSettings;
+
+import com.android.internal.util.android.ThemeUtils;
 
 /**
  * A fragment to include all the settings related to Gesture Navigation mode.
@@ -55,6 +59,7 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
     private static final String GESTURE_NAVBAR_LENGTH_KEY = "gesture_navbar_length_preference";
     private static final String GESTURE_BACK_HEIGHT_KEY = "gesture_back_height";
     private static final String GESTURE_NAVBAR_RADIUS_KEY = "gesture_navbar_radius_preference";
+    private static final String HIDE_IME_SPACE_KEY = "hide_ime_space_enable";
 
     private WindowManager mWindowManager;
     private BackGestureIndicatorView mIndicatorView;
@@ -64,7 +69,7 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
 
     private LabeledSeekBarPreference mGestureNavbarLengthPreference;
 
-
+    private ThemeUtils mThemeUtils;
 
     private float[] mBackGestureHeightScales = { 0f, 1f, 2f, 3f };
     private int mCurrentRightWidth;
@@ -80,6 +85,7 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
 
         mIndicatorView = new BackGestureIndicatorView(getActivity());
         mWindowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        mThemeUtils = ThemeUtils.getInstance(getActivity());
     }
 
     @Override
@@ -98,6 +104,13 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
 
         initGestureNavbarLengthPreference();
         initGestureBarRadiusPreference();
+        initHideImeSpacePreference();
+        boolean isTaskbarEnabled = LineageSettings.System.getInt(getContext().getContentResolver(),
+                LineageSettings.System.ENABLE_TASKBAR, isLargeScreen(getContext()) ? 1 : 0) == 1;
+        if (isTaskbarEnabled) {
+            getPreferenceScreen().removePreference(
+                    getPreferenceScreen().findPreference(HIDE_IME_SPACE_KEY));
+        }
     }
 
     @Override
@@ -248,6 +261,32 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
         pref.setOnPreferenceChangeListener((p, v) ->
             Settings.System.putIntForUser(getContext().getContentResolver(),
                 Settings.System.GESTURE_NAVBAR_RADIUS, (Integer) v, UserHandle.USER_CURRENT));
+    }
+    
+    private void initHideImeSpacePreference() {
+        final Preference pref = getPreferenceScreen().findPreference(HIDE_IME_SPACE_KEY);
+        if (pref != null) {
+            pref.setOnPreferenceChangeListener((p, newValue) -> {
+                updateHideImeSpaceOverlay();
+                return true;
+            });
+        }
+    }
+
+    private void updateHideImeSpaceOverlay() {
+        boolean hideImeSpaceEnabled = Settings.System.getIntForUser(
+            getContext().getContentResolver(),
+            Settings.System.HIDE_IME_SPACE_ENABLE,
+            0, 
+            UserHandle.USER_CURRENT
+        ) != 0;
+        mThemeUtils.setOverlayEnabled(
+            "android.theme.customization.hide_ime_space",
+            hideImeSpaceEnabled
+                ? "com.custom.overlay.systemui.gestural.hide_ime_space"
+                : "android",
+            "android"
+        );
     }
 
     private static float[] getFloatArray(TypedArray array) {
