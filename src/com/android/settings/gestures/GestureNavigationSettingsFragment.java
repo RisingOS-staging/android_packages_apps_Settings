@@ -114,6 +114,8 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
             getPreferenceScreen().removePreference(
                     getPreferenceScreen().findPreference(NAVIGATION_BAR_RADIUS_KEY));
             getPreferenceScreen().removePreference(
+                    getPreferenceScreen().findPreference(NAVIGATION_BAR_HINT_KEY));
+            getPreferenceScreen().removePreference(
                     getPreferenceScreen().findPreference(HIDE_IME_SPACE_KEY));
         }
     }
