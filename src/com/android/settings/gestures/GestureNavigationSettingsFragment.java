@@ -109,6 +109,8 @@ public class GestureNavigationSettingsFragment extends DashboardFragment {
                 LineageSettings.System.ENABLE_TASKBAR, isLargeScreen(getContext()) ? 1 : 0) == 1;
         if (isTaskbarEnabled) {
             getPreferenceScreen().removePreference(
+                    getPreferenceScreen().findPreference(GESTURE_NAVBAR_LENGTH_KEY));
+            getPreferenceScreen().removePreference(
                     getPreferenceScreen().findPreference(HIDE_IME_SPACE_KEY));
         }
     }
