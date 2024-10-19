@@ -38,7 +38,7 @@
             android:nextFocusForward="@+id/homepage_container"
             android:contentInsetStartWithNavigation="@dimen/search_bar_content_inset"
             android:navigationIcon="@drawable/ic_homepage_search">
-            <TextView
+            <com.android.settings.utils.SettingsSearchTextView
                 android:id="@+id/search_action_bar_title"
                 style="@style/TextAppearance.SearchBar"
                 android:layout_width="wrap_content"
